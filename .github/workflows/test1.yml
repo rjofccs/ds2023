@@ -1,0 +1,40 @@
+name: test1
+on:
+  push
+  # schedule:
+  #   - cron: "0 * * * *"
+jobs:
+  python-job1:
+    name: Run test1
+    runs-on: ubuntu-latest
+    if: github.repository == 'rjofccs/ds20231'
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Setting up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    - name: Removing previous chrome instances on runner 
+      run: |
+        sudo apt purge google-chrome-stable
+        pip install chromedriver-autoinstaller selenium pyvirtualdisplay
+        sudo apt-get install xvfb
+    - uses: actions/cache@v3
+      with:
+        path: ./db2.db
+        key: db-database-${{ github.run_id }}
+        restore-keys: |
+          db-database-
+          db-database-${{ github.run_id }}        
+    - name: Running the Python script
+      run: |
+        pip3 install requests
+        wget https://github.com/iamadamdev/bypass-paywalls-chrome/releases/download/v1.8.1/bypass-paywalls-chrome.crx
+
+    - run: |
+        sudo mount -t tmpfs -o rw,nosuid,nodev,noexec,relatime,size=512M tmpfs /dev/shm
+        pip install lxml
+        pip install arrow
+        python test1.py
+        ls -al

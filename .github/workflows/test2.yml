@@ -1,0 +1,32 @@
+name: test2
+on:
+  schedule:
+    - cron: "0 * * * *"
+jobs:
+  python-job1:
+    name: Run test2
+    runs-on: ubuntu-latest
+    if: github.repository == 'rjofccs/ds20231'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup yt-dlp
+        uses: AnimMouse/setup-yt-dlp@v1
+        with:
+          with-ffmpeg: true
+               
+      - uses: actions/cache@v3
+        with:
+          path: ./db1.db
+          key: db-database-${{ github.run_id }}
+          restore-keys: |
+            db-database-
+            db-database-${{ github.run_id }}
+
+      - run: |
+          # pip install youtube_transcript_api
+          pip install webvtt-py
+          pip install arrow
+          python test2.py ${{secrets.YT_KEY}}
+          ls -al

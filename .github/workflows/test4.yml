@@ -1,0 +1,26 @@
+name: test1
+on:
+  schedule:
+    - cron: "0 * * * *"
+jobs:
+  python-job1:
+    name: Run test1
+    runs-on: ubuntu-latest
+    if: github.repository == 'rjofccs/ds20231'
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+        
+    - name: Install Java and Maven
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+    - name: Run
+      run: |
+        pwd
+        java -version
+        cd ./dsdemo/
+        ls -al
+        mvn -B package -Dmaven.test.skip=true
+        java -jar target/dsdemo-1.0-SNAPSHOT.jar
+        ls -al

