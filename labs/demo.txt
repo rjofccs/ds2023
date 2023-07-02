@@ -68,6 +68,28 @@ modinfo hello
 lsmod | grep hello
 
 sudo rmmod hello
+
+
+git checkout --orphan lastest_branch&&git add -A&&git commit -am 'c'&&git branch -D main&&git branch -m main&&git push -f origin main
+gh repo clone rjofccs/ms2023
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 https://chrome.google.com/webstore/detail/awesome-chatgpt-screensho/nlipoenfbbikpbjkfpfillcgkoblgpmj?utm_source=app-launcher
 https://chrome.google.com/webstore/detail/immersive-translate/bpoadfkcbjbfhfodiogcnhhhpibjhbnh?utm_source=app-launcher
 
