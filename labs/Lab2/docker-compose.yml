@@ -4,6 +4,7 @@ services:
     attacker:
         image: handsonsecurity/seed-ubuntu:large
         container_name: seed-attacker
+        hostname: seed-attacker
         tty: true
         cap_add:
                 - ALL
@@ -16,6 +17,7 @@ services:
     Victim:
         image: handsonsecurity/seed-ubuntu:large
         container_name: victim-10.9.0.5
+        hostname: victim-10.9.0.5
         tty: true
         cap_add:
                 - ALL
@@ -35,6 +37,7 @@ services:
     User1:
         image: handsonsecurity/seed-ubuntu:large
         container_name: user1-10.9.0.6
+        hostname: user1-10.9.0.6
         tty: true
         cap_add:
                 - ALL
