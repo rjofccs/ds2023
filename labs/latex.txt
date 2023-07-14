@@ -1,0 +1,288 @@
+il
+wget https://raw.githubusercontent.com/JelteF/PyLaTeX/master/examples/full.py
+wget https://raw.githubusercontent.com/JelteF/PyLaTeX/master/examples/kitten.jpg
+
+from pylatex import Document, Section, Subsection, MiniPage, LargeText, LineBreak, MediumText, HugeText, Command
+from pylatex.utils import italic, NoEscape, bold, escape_latex
+import uuid
+
+TEMPLATE1_FORMAT=    '''inp={"basic_details":{"name":"<name>","email":"<email>"},
+            "experience":   {"exp1":"details","exp2":"details"},
+            "education" :   {"ed1":"details","ed1":"details"},
+            "projects"  :   {"pro1":"details","pro2":"details"},
+            "link"      :   {"Facebook": "www.faacebook.com"}
+            }'''
+
+def template1(inp):
+    geometry_options = {"margin": "0.7in"}
+    doc=Document(geometry_options=geometry_options)
+
+    doc.preamble.append(NoEscape("\\usepackage{indentfirst}"))
+    doc.packages.append(NoEscape("\\usepackage{hyperref}"))
+
+    def hyperlink(url,text):
+        text = escape_latex(text)
+        if url[0:3]!="www.":
+            url="www."+url
+        return NoEscape(r'\href{' + url + '}{' + text + '}')
+
+    with doc.create(MiniPage(align='r')):
+        doc.append(HugeText(bold(inp["basic_details"]["name"])))
+        doc.append(LineBreak())
+        doc.append(MediumText(bold(inp["basic_details"]["email"])))
+    if not inp["experience"]=={}:
+        with doc.create(Section("EXPERIENCE: ")):
+            for i in inp["experience"].keys():
+                with doc.create(Subsection(i)):
+                    doc.append(inp["experience"][i])
+    if not inp["education"]=={}:
+        with doc.create(Section("EDUCATION: ")):
+            for i in inp["education"].keys():
+                with doc.create(Subsection(i)):
+                    doc.append(inp["education"][i])
+    if not inp["projects"]=={}:
+        with doc.create(Section("PROJECTS: ")):
+            for i in inp["projects"].keys():
+                with doc.create(Subsection(i)):
+                    doc.append(inp["projects"][i])
+    if not inp["link"]=={}:
+        with doc.create(Section("LINKS: ")):
+            for i in inp["link"].keys():
+                doc.append(MediumText(hyperlink(inp["link"][i],i)))
+    
+
+    filename=str(uuid.uuid1())
+    doc.generate_pdf("payloads/"+filename)
+    return "payloads/"+filename+".pdf"
+
+'''testdata={"basic_details":{"name":"<name>","email":"<email>"},
+            "experience":   {"exp1":"details","exp2":"details"},
+            "education" :   {"ed1":"details","ed1":"details"},
+            "projects"  :   {"pro1":"details","pro2":"details"},
+            }
+
+template1(testdata)'''
+
+https://github.com/mozilla/pdf.js
+docker run -p 8888:80 -v /root/pdf.js:/usr/share/nginx/html -d nginx:alpine
+http://144.202.85.251:8888/web/viewer.html
+http://144.202.85.251:8888/build/generic/web/viewer.html?file=http://144.202.85.251:8888/sample.pdf
+if (fileOrigin !== viewerOrigin) {
+throw new Error('file origin does not match viewer\'s');
+}
+var LOCAL_AUTO_DETECT_ORIGIN = window.location.origin;
+var HOSTED_VIEWER_ORIGINS = ['null', 'http://mozilla.github.io', 'https://mozilla.github.io'];
+HOSTED_VIEWER_ORIGINS.push(LOCAL_AUTO_DETECT_ORIGIN);
+
+const url = "https://nextcloudserver.com/public.php/webdav/";
+var objHTTP = new XMLHttpRequest();
+objHTTP.open('PROPFIND', url, true);
+objHTTP.setRequestHeader("OCS-APIRequest","true");
+objHTTP.setRequestHeader("Authorization", "Basic " + Base64.encode("username:password"));
+objHTTP.onreadystatechange = function() {
+    if (objHTTP.readyState == XMLHttpRequest.DONE) {
+        console.log(objHTTP.responseText);
+    }
+}
+objHTTP.send();
+
+apt-get install tex4ht
+htlatex -d
+apt install -y \
+  texlive \
+  texlive-latex-base \
+  texlive-fonts-recommended \
+  texlive-fonts-extra \
+  texlive-extra-utils \
+  texlive-latex-extra \
+  texlive-xetex
+pdflatex -d
+/documentclass[a4paper]{article}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[margin=1.2in]{geometry}
+\title{Programming Assignment - 3}
+\author{Niraj J. Dedhia}
+\date{March 14, 2016}
+\begin{document}
+\maketitle
+\begin{abstract}
+In this programming assignment we were supposed to understand the concepts of FFT, Inverse FFT, DCT, Inverse DCT, Hybrid Image, Cooley–Tukey algorithm and visualization. 
+\end{abstract}
+\section{Summary}
+This assignment was divided in four parts. 1) Implementation of DFT, IDFT using Cooley Tukey algorithm , 2) Visualization part. 3) Implementation to create Hybrid Image and 4) Implementation of DCT which was for bonus marks. 
+\section{Methodology}
+\subsection{DFT and IDFT}
+Fast Fourier Transform(FFT) algorithm computes the Discrete Fourier transform (DFT) of a sequence. FFT converts the signal from one domain to the frequency domain and IFFT converts the signal from frequency domain to the space or time domain. I have implemented Cooley Tukey algorithm for computation of FFT and IFFT for 1D and 2D. Following are the formulas for FFT1D and IFFT1D and steps for Implementation of FFT2D-IFFT2D.
+$Original image = IFFT2D( FFT2D ( original image ) )$
+\begin{itemize}
+\item Read an image converted it in to gray-scale and double.
+\item Perform FFT for each row in Image.
+\item Take transpose of Image.
+\item Again perform FFT over each row in an Image (i.e. column transformation).
+\item Take transpose of Image and this is the final result.
+\item For inverse FFT perform the same steps the only difference is instead of FFT perform IFFT.
+\end{itemize}
+
+\section{ References:}
+$
+[1] https://en.wikipedia.org/wiki/Discrete_Fourier_transform.   
+\newline
+[2] https://en.wikipedia.org/wiki/Hybrid_image.
+\newline
+[3] https://en.wikipedia.org/wiki/Discrete_cosine_transform.
+\newline
+[4] http://ieeexplore.ieee.org.ezproxy.rit.edu/stamp/stamp.jsp.
+\newline
+[5] http://www.mathworks.com/help/ .
+\newline
+[6] https://www.overleaf.com .
+$
+\end{document}
+
+--
+\documentclass{article}
+\usepackage{graphicx} % includegraphics command is implemented here
+\begin{document}
+
+\write18{wget http://www.some-site.com/path/to/image.png}
+\includegraphics{image.png}
+
+\end{document}
+
+
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[margin=1.2in]{geometry}
+
+\title{Programming Assignment - 3}
+\author{Niraj J. Dedhia}
+\date{March 14, 2016}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+In this programming assignment we were supposed to understand the concepts of FFT, Inverse FFT, DCT, Inverse DCT, Hybrid Image, Cooley–Tukey algorithm and visualization. 
+\end{abstract}
+
+\section{Summary}
+
+This assignment was divided in four parts. 1) Implementation of DFT, IDFT using Cooley Tukey algorithm , 2) Visualization part. 3) Implementation to create Hybrid Image and 4) Implementation of DCT which was for bonus marks. 
+
+\section{Methodology}
+
+\subsection{DFT and IDFT}
+Fast Fourier Transform(FFT) algorithm computes the Discrete Fourier transform (DFT) of a sequence. FFT converts the signal from one domain to the frequency domain and IFFT converts the signal from frequency domain to the space or time domain. I have implemented Cooley Tukey algorithm for computation of FFT and IFFT for 1D and 2D. Following are the formulas for FFT1D and IFFT1D and steps for Implementation of FFT2D-IFFT2D.
+$Original image = IFFT2D( FFT2D ( original image ) )$
+
+\begin{center}
+\includegraphics[width=0.9\textwidth]{fft_for.png}
+
+$Figure 1 : FFT and IFFT Formula$
+\end{center}
+
+\begin{itemize}
+\item Read an image converted it in to gray-scale and double.
+\item Perform FFT for each row in Image.
+\item Take transpose of Image.
+\item Again perform FFT over each row in an Image (i.e. column transformation).
+\item Take transpose of Image and this is the final result.
+\item For inverse FFT perform the same steps the only difference is instead of FFT perform IFFT.
+\end{itemize}
+
+\begin{center}
+\includegraphics[width=0.9\textwidth]{hybrid.png}
+
+$Figure 2 : Original Image --> FFT --> IFFT$
+\end{center}
+
+\subsection{Hybrid Image}
+Two images are combined in a way that resultant image after combining them looks different based on the viewing distance. Here I have taken two images 1) Dog and 2) Cat and created hybrid image (figure 2) by applying following algorithm. 
+\begin{itemize}
+\item Read two images converted it in to gray-scale and double.
+\item Padded images with the nearest value of power of 2.
+\item Defined Gaussian low pass and high pass filers of size of padded images.
+\item Took DFT of Images and filters.
+\item Performed element wise multiplication of first image with high pass filter and second image with low pass filter and performed(A) .
+\item Subtracted the high frequency image with its original image (B).
+\item Add both the images (A + B).
+\item Removed the padding and displayed it.
+\end{itemize}
+
+\begin{center}
+\includegraphics[width=0.6\textwidth]{fft.png}
+
+$Figure 3 : Hybrid Image$
+\end{center}
+
+\subsection{Visualization}
+We were supposed to fill the stub with our implementation for showing the flaw how this FFT will turned in to IFFT, pixel by pixel visualization of conversion of FFT to IFFT. There are total six components a) Original Image, b) Log magnitude of DFFT of image, c) Used DFFT from 'b' component, d) Current component inserted in a component 'c' e) Scaled sine of component 'd', f) Inverse DFFT of Used DFFT component. Following are the steps for visualization.
+
+\begin{itemize}
+\item Read an image convert it in to gray-scale and double displayed that in first component.
+\item Computed DFFT of input image and calculated the log10 of its magnitude. Then normalized it and displayed in component 2.
+\item Perform the following steps iteratively for continuous visualization.
+\item Searched maximum value from 'b' component(Brightest pixel value) and inserted it in component 'c' (This is also log magnitude value).
+\item Took inverse DFT of de-normalized Used DFFT component. Displayed it in 'f' component.
+\item For every iterations initialized the current component and scaled sine component.
+\item Took the current used pixels and display it in 'd' component.
+\item Computed the inverse DFFT of current component and displayed it in 'e' component. 
+\end{itemize}
+
+\begin{center}
+\includegraphics[width=0.9\textwidth]{visu.png}
+
+$Figure 4 : Visualization (After Few Iterations)$
+\end{center}
+
+
+\subsection{DCT and IDCT}
+Discrete cosine transform(DCT) expresses a finite sequence of data points in terms of a sum of cosine functions keep changing at different frequencies. Its easy as it deals with real part only. Following are the formulas for DCT1D and IDCT1D and steps for Implementation of DCT2D-IDCT2D.
+$Original image = IDCT2D( DCT2D ( original image ) )$
+
+\begin{center}
+\includegraphics[width=0.9\textwidth]{dct_for.png}
+
+$Figure 5 : DCT and IDCT Formula$
+\end{center}
+
+\begin{itemize}
+\item Read an image converted it in to gray-scale and double.
+\item Perform DCT for each row in Image.
+\item Take transpose of Image.
+\item Again perform DCT over each row in an Image (i.e. column transformation).
+\item Take transpose of Image and store it as the final result.
+\item For inverse DCT perform the same steps the only difference is instead of DCT perform IDCT.
+\end{itemize}
+
+\begin{center}
+\includegraphics[width=0.9\textwidth]{dct.png}
+
+$Figure 6 : Original Image --> DCT --> IDCT$
+\end{center}
+
+
+\section{ References:}
+$
+[1] https://en.wikipedia.org/wiki/Discrete_Fourier_transform.   
+\newline
+[2] https://en.wikipedia.org/wiki/Hybrid_image.
+\newline
+[3] https://en.wikipedia.org/wiki/Discrete_cosine_transform.
+\newline
+[4] http://ieeexplore.ieee.org.ezproxy.rit.edu/stamp/stamp.jsp.
+\newline
+[5] http://www.mathworks.com/help/ .
+\newline
+[6] https://www.overleaf.com .
+$
+\end{document}
