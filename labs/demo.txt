@@ -3,26 +3,7 @@ sudo tshark -i br-818275ff5b0a -f "tcp and port 23" -o tcp.relative_sequence_num
 tee /home/seed/Lab2/volumes/reset.py <<-'EOF'
 #!/usr/bin/env python3
 EOF
-
 netstat -tna | grep SYN_RECV | wc -l
-ss -n state syn-recv sport = :23 | wc -l
-docker exec -it seed-attacker python3 /volumes/reset.py 46112 4217598685
-
-tee /home/seed/Lab2/volumes/resetauto.py <<-'EOF'
-#!/usr/bin/env python3
-#!/usr/bin/python3
-EOF
-tee /home/seed/Lab2/volumes/synflood.py <<-'EOF'
-#!/usr/bin/env python3
-EOF
-dmesg -Hkw
-
-sudo insmod hello.ko
-modinfo hello
-lsmod | grep hello
-sudo rmmod hello
-
-
 
 unzip -d -r nf
 
@@ -33,20 +14,34 @@ curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo 
 && sudo apt update \
 && sudo apt install gh -y
 
+
 git checkout --orphan lastest_branch&&git add -A&&git commit -am 'c'&&git branch -D main&&git branch -m main&&git push -f origin main
 gh repo clone rjofccs/ms2023
+
+
+
+
+
+
 
 https://drive.google.com/file/d/1A1IGuzwAtqnw95Y69VUC6CqK_GpIs-01/view
 https://drive.google.com/file/d/1e4MIqcsDaMyreMu9-F6RnDc63cNbNs4A/view?pli=1
 https://blog.csdn.net/qq_39852676/article/details/131352226
-
-
-
-
-
-
-
-
+https://github.com/Snailclimb/JavaGuide
+https://coder.com/docs/code-server/latest/install#debian-ubuntu
+https://coder.com/docs/code-server/latest/install#debian-ubuntu
+https://github.com/briansjavablog/build-and-run-spring-boot-with-docker
+ttps://www.bilibili.com/video/BV1KY411x7Jp/
+curl -o src-cloud.zip https://seed.nyc3.cdn.digitaloceanspaces.com/src-cloud.zip&&sudo apt update&&sudo apt -y install unzip&&unzip src-cloud.zip&&cd src-cloud&&./install.sh
+wget https://seedsecuritylabs.org/Labs_20.04/Files/TCP_Attacks/Labsetup.zip&&unzip Labsetup.zip&&cd Labsetup
+sudo add-apt-repository -y ppa:wireshark-dev/stable
+sudo apt install -y tshark
+sudo tshark -i br-818275ff5b0a -f "tcp and port 23" -o tcp.relative_sequence_numbers:FALSE -w /tmp.pcap -T fields -e frame.number -e tcp.seq -e ip.src -e tcp.srcport -e ip.dst -e tcp.dstport -e tcp.ack -e frame.time_epoch
+https://chrome.google.com/webstore/detail/awesome-chatgpt-screensho/nlipoenfbbikpbjkfpfillcgkoblgpmj?utm_source=app-launcher
+https://chrome.google.com/webstore/detail/immersive-translate/bpoadfkcbjbfhfodiogcnhhhpibjhbnh?utm_source=app-launcher
+https://coder.com/docs/code-server/latest/install#debian-ubuntu
+https://www.papeeria.com/p/0940d65a-981c-4726-aca2-bedabaf49ee4#/main.tex
+https://raw.githubusercontent.com/rjofccs/ds2023/main/test3.png
 
 
 
@@ -56,8 +51,11 @@ https://blog.csdn.net/qq_39852676/article/details/131352226
 apt update && apt -y install zip python3-pip nodejs npm openjdk-17-jdk docker-compose
 ln -sf /usr/bin/python3.10 /usr/bin/python
 docker run -d -v /usr/local/dav:/data -p 3333:5000 sigoden/dufs /data --auth 1:1@/:rw -A
-https://github.com/Snailclimb/JavaGuide
-https://coder.com/docs/code-server/latest/install#debian-ubuntu
+git clone https://github.com/rjofccs/webssh.git&&cd webssh&&docker-compose up -d
+npm install pm2 -g&&mkdir /usr/local/pm2/
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+
+
 VERSION=4.14.1
 USER=root
 curl -fOL https://github.com/coder/code-server/releases/download/v$VERSION/code-server_${VERSION}_amd64.deb
@@ -78,9 +76,7 @@ docker run -d \
   -p 5900:5900 \
   -e RESOLUTION=1360x768 \
   dorowu/ubuntu-desktop-lxde-vnc
-https://coder.com/docs/code-server/latest/install#debian-ubuntu
 
-https://github.com/briansjavablog/build-and-run-spring-boot-with-docker
 FROM maven:3.5.2-jdk-8-alpine AS MAVEN_BUILD
 MAINTAINER Brian Hannaway
 COPY pom.xml /build/
@@ -107,13 +103,7 @@ else:
     print("Unable to get the screenshot.")
 
 
-git clone https://github.com/rjofccs/webssh.git&&cd webssh&&docker-compose up -d
-npm install pm2 -g&&mkdir /usr/local/pm2/
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
-https://www.bilibili.com/video/BV1KY411x7Jp/
-https://blog.csdn.net/yyws2039725/article/details/111560873
-https://blog.csdn.net/eric_sunah/article/details/103401311
 ClientHello记录：
 3. 展开ClientHello记录。(如果你的追踪包含多个ClientHello记录，展开包含第一个记录的框架)。内容类型的值是什么？
 4. ClientHello记录是否包含一个nonce（也称为 "挑战"）？如果是，挑战的值是什么，用十六进制表示？
@@ -134,18 +124,7 @@ ServerHello记录：
 应用数据
 14. 应用数据是如何被加密的？包含应用数据的记录是否包括MAC？Wireshark是否区分了加密的应用数据和MAC?
 
-curl -o src-cloud.zip https://seed.nyc3.cdn.digitaloceanspaces.com/src-cloud.zip&&sudo apt update&&sudo apt -y install unzip&&unzip src-cloud.zip&&cd src-cloud&&./install.sh
-wget https://seedsecuritylabs.org/Labs_20.04/Files/TCP_Attacks/Labsetup.zip&&unzip Labsetup.zip&&cd Labsetup
-sudo add-apt-repository -y ppa:wireshark-dev/stable
-sudo apt install -y tshark
-sudo tshark -i br-818275ff5b0a -f "tcp and port 23" -o tcp.relative_sequence_numbers:FALSE -w /tmp.pcap -T fields -e frame.number -e tcp.seq -e ip.src -e tcp.srcport -e ip.dst -e tcp.dstport -e tcp.ack -e frame.time_epoch
-https://chrome.google.com/webstore/detail/awesome-chatgpt-screensho/nlipoenfbbikpbjkfpfillcgkoblgpmj?utm_source=app-launcher
-https://chrome.google.com/webstore/detail/immersive-translate/bpoadfkcbjbfhfodiogcnhhhpibjhbnh?utm_source=app-launcher
-git clone https://github.com/rjofccs/webssh.git&&cd webssh&&docker-compose up -d
-https://coder.com/docs/code-server/latest/install#debian-ubuntu
-https://www.papeeria.com/p/0940d65a-981c-4726-aca2-bedabaf49ee4#/main.tex
-https://raw.githubusercontent.com/rjofccs/ds2023/main/test3.png
-
+--
 \documentclass{article}
 \usepackage{graphicx} % includegraphics command is implemented here
 \begin{document}
