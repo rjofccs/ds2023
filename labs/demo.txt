@@ -5,7 +5,18 @@ tee /home/seed/Lab2/volumes/reset.py <<-'EOF'
 EOF
 netstat -tna | grep SYN_RECV | wc -l
 
+apt update && apt -y install zip python3-pip nodejs npm openjdk-17-jdk docker-compose
+ln -sf /usr/bin/python3.10 /usr/bin/python
+
+docker run -p 1111:80 -v /root/:/usr/share/nginx/html -d nginx:alpine
+docker run -d -v /usr/local/dav:/data -p 3333:5000 sigoden/dufs /data --auth 1:1@/:rw -A
+
+git clone https://github.com/rjofccs/webssh.git&&cd webssh&&docker-compose up -d
+npm install pm2 -g&&mkdir /usr/local/pm2/
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+
 unzip -d -r nf
+
 
 type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
 curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
@@ -13,8 +24,6 @@ curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo 
 && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
 && sudo apt update \
 && sudo apt install gh -y
-
-
 git checkout --orphan lastest_branch&&git add -A&&git commit -am 'c'&&git branch -D main&&git branch -m main&&git push -f origin main
 gh repo clone rjofccs/ms2023
 
@@ -43,17 +52,11 @@ https://coder.com/docs/code-server/latest/install#debian-ubuntu
 https://www.papeeria.com/p/0940d65a-981c-4726-aca2-bedabaf49ee4#/main.tex
 https://raw.githubusercontent.com/rjofccs/ds2023/main/test3.png
 
+curl -X POST http://144.202.85.251:8080/login -H "Content-Type: application/x-www-form-urlencoded" -d "username=admin&password="
 
 
 
 
-
-apt update && apt -y install zip python3-pip nodejs npm openjdk-17-jdk docker-compose
-ln -sf /usr/bin/python3.10 /usr/bin/python
-docker run -d -v /usr/local/dav:/data -p 3333:5000 sigoden/dufs /data --auth 1:1@/:rw -A
-git clone https://github.com/rjofccs/webssh.git&&cd webssh&&docker-compose up -d
-npm install pm2 -g&&mkdir /usr/local/pm2/
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
 
 VERSION=4.14.1
@@ -123,148 +126,3 @@ ServerHello记录：
 
 应用数据
 14. 应用数据是如何被加密的？包含应用数据的记录是否包括MAC？Wireshark是否区分了加密的应用数据和MAC?
-
---
-\documentclass{article}
-\usepackage{graphicx} % includegraphics command is implemented here
-\begin{document}
-
-\write18{wget http://www.some-site.com/path/to/image.png}
-\includegraphics{image.png}
-
-\end{document}
-
-
-\documentclass[a4paper]{article}
-
-\usepackage[english]{babel}
-\usepackage[utf8x]{inputenc}
-\usepackage{amsmath}
-\usepackage{graphicx}
-\usepackage[colorinlistoftodos]{todonotes}
-\usepackage[margin=1.2in]{geometry}
-
-\title{Programming Assignment - 3}
-\author{Niraj J. Dedhia}
-\date{March 14, 2016}
-
-\begin{document}
-\maketitle
-
-\begin{abstract}
-In this programming assignment we were supposed to understand the concepts of FFT, Inverse FFT, DCT, Inverse DCT, Hybrid Image, Cooley–Tukey algorithm and visualization. 
-\end{abstract}
-
-\section{Summary}
-
-This assignment was divided in four parts. 1) Implementation of DFT, IDFT using Cooley Tukey algorithm , 2) Visualization part. 3) Implementation to create Hybrid Image and 4) Implementation of DCT which was for bonus marks. 
-
-\section{Methodology}
-
-\subsection{DFT and IDFT}
-Fast Fourier Transform(FFT) algorithm computes the Discrete Fourier transform (DFT) of a sequence. FFT converts the signal from one domain to the frequency domain and IFFT converts the signal from frequency domain to the space or time domain. I have implemented Cooley Tukey algorithm for computation of FFT and IFFT for 1D and 2D. Following are the formulas for FFT1D and IFFT1D and steps for Implementation of FFT2D-IFFT2D.
-$Original image = IFFT2D( FFT2D ( original image ) )$
-
-\begin{center}
-\includegraphics[width=0.9\textwidth]{fft_for.png}
-
-$Figure 1 : FFT and IFFT Formula$
-\end{center}
-
-\begin{itemize}
-\item Read an image converted it in to gray-scale and double.
-\item Perform FFT for each row in Image.
-\item Take transpose of Image.
-\item Again perform FFT over each row in an Image (i.e. column transformation).
-\item Take transpose of Image and this is the final result.
-\item For inverse FFT perform the same steps the only difference is instead of FFT perform IFFT.
-\end{itemize}
-
-\begin{center}
-\includegraphics[width=0.9\textwidth]{hybrid.png}
-
-$Figure 2 : Original Image --> FFT --> IFFT$
-\end{center}
-
-\subsection{Hybrid Image}
-Two images are combined in a way that resultant image after combining them looks different based on the viewing distance. Here I have taken two images 1) Dog and 2) Cat and created hybrid image (figure 2) by applying following algorithm. 
-\begin{itemize}
-\item Read two images converted it in to gray-scale and double.
-\item Padded images with the nearest value of power of 2.
-\item Defined Gaussian low pass and high pass filers of size of padded images.
-\item Took DFT of Images and filters.
-\item Performed element wise multiplication of first image with high pass filter and second image with low pass filter and performed(A) .
-\item Subtracted the high frequency image with its original image (B).
-\item Add both the images (A + B).
-\item Removed the padding and displayed it.
-\end{itemize}
-
-\begin{center}
-\includegraphics[width=0.6\textwidth]{fft.png}
-
-$Figure 3 : Hybrid Image$
-\end{center}
-
-\subsection{Visualization}
-We were supposed to fill the stub with our implementation for showing the flaw how this FFT will turned in to IFFT, pixel by pixel visualization of conversion of FFT to IFFT. There are total six components a) Original Image, b) Log magnitude of DFFT of image, c) Used DFFT from 'b' component, d) Current component inserted in a component 'c' e) Scaled sine of component 'd', f) Inverse DFFT of Used DFFT component. Following are the steps for visualization.
-
-\begin{itemize}
-\item Read an image convert it in to gray-scale and double displayed that in first component.
-\item Computed DFFT of input image and calculated the log10 of its magnitude. Then normalized it and displayed in component 2.
-\item Perform the following steps iteratively for continuous visualization.
-\item Searched maximum value from 'b' component(Brightest pixel value) and inserted it in component 'c' (This is also log magnitude value).
-\item Took inverse DFT of de-normalized Used DFFT component. Displayed it in 'f' component.
-\item For every iterations initialized the current component and scaled sine component.
-\item Took the current used pixels and display it in 'd' component.
-\item Computed the inverse DFFT of current component and displayed it in 'e' component. 
-\end{itemize}
-
-\begin{center}
-\includegraphics[width=0.9\textwidth]{visu.png}
-
-$Figure 4 : Visualization (After Few Iterations)$
-\end{center}
-
-
-\subsection{DCT and IDCT}
-Discrete cosine transform(DCT) expresses a finite sequence of data points in terms of a sum of cosine functions keep changing at different frequencies. Its easy as it deals with real part only. Following are the formulas for DCT1D and IDCT1D and steps for Implementation of DCT2D-IDCT2D.
-$Original image = IDCT2D( DCT2D ( original image ) )$
-
-\begin{center}
-\includegraphics[width=0.9\textwidth]{dct_for.png}
-
-$Figure 5 : DCT and IDCT Formula$
-\end{center}
-
-\begin{itemize}
-\item Read an image converted it in to gray-scale and double.
-\item Perform DCT for each row in Image.
-\item Take transpose of Image.
-\item Again perform DCT over each row in an Image (i.e. column transformation).
-\item Take transpose of Image and store it as the final result.
-\item For inverse DCT perform the same steps the only difference is instead of DCT perform IDCT.
-\end{itemize}
-
-\begin{center}
-\includegraphics[width=0.9\textwidth]{dct.png}
-
-$Figure 6 : Original Image --> DCT --> IDCT$
-\end{center}
-
-
-\section{ References:}
-$
-[1] https://en.wikipedia.org/wiki/Discrete_Fourier_transform.   
-\newline
-[2] https://en.wikipedia.org/wiki/Hybrid_image.
-\newline
-[3] https://en.wikipedia.org/wiki/Discrete_cosine_transform.
-\newline
-[4] http://ieeexplore.ieee.org.ezproxy.rit.edu/stamp/stamp.jsp.
-\newline
-[5] http://www.mathworks.com/help/ .
-\newline
-[6] https://www.overleaf.com .
-$
-\end{document}
-
