@@ -1,9 +1,9 @@
+il
 import pylatex as p
 import os
 
 if __name__ == '__main__':
-    geometry_options = {"tmargin": "1in", "lmargin": "1.5in"}
-    doc = p.Document(geometry_options=geometry_options)
+    doc = p.Document(geometry_options={"tmargin": "1in", "lmargin": "1.5in"})
 
     doc.preamble.append(p.Command('title', 'Awesome Title'))
     doc.preamble.append(p.Command('author', 'Anonymous author'))
@@ -18,7 +18,6 @@ if __name__ == '__main__':
                 kitten_pic.add_caption('Look it\'s on its back')
 
     doc.generate_pdf('full', clean_tex=True)
-
 
 
 
