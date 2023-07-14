@@ -1,4 +1,27 @@
-il
+import pylatex as p
+import os
+
+if __name__ == '__main__':
+    geometry_options = {"tmargin": "1in", "lmargin": "1.5in"}
+    doc = p.Document(geometry_options=geometry_options)
+
+    doc.preamble.append(p.Command('title', 'Awesome Title'))
+    doc.preamble.append(p.Command('author', 'Anonymous author'))
+    doc.preamble.append(p.Command('date', NoEscape(r'\today')))
+    doc.append(p.NoEscape(r'\maketitle'))
+
+    with doc.create(p.Section('The simple stuff')):
+        doc.append('Some regular text and some')
+        with doc.create(p.Subsection('Cute kitten pictures')):
+            with doc.create(p.Figure(position='h!')) as kitten_pic:
+                kitten_pic.add_image('../1.png', width='400px')
+                kitten_pic.add_caption('Look it\'s on its back')
+
+    doc.generate_pdf('full', clean_tex=True)
+
+
+
+
 wget https://raw.githubusercontent.com/JelteF/PyLaTeX/master/examples/full.py
 wget https://raw.githubusercontent.com/JelteF/PyLaTeX/master/examples/kitten.jpg
 
