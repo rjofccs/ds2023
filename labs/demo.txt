@@ -8,9 +8,8 @@ netstat -tna | grep SYN_RECV | wc -l
 apt update && apt -y install zip python3-pip nodejs npm openjdk-17-jdk docker-compose
 ln -sf /usr/bin/python3.10 /usr/bin/python
 
-docker run -p 1111:80 -v /root/:/usr/share/nginx/html -d nginx:alpine
+docker run -p 1111:80 -v /usr/local/dav/web/:/usr/share/nginx/html -d nginx:alpine
 docker run -d -v /usr/local/dav:/data -p 3333:5000 sigoden/dufs /data --auth 1:1@/:rw -A
-
 git clone https://github.com/rjofccs/webssh.git&&cd webssh&&docker-compose up -d
 npm install pm2 -g&&mkdir /usr/local/pm2/
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
