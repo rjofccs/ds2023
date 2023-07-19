@@ -1,25 +1,34 @@
-il
-import pylatex as p
-import os
+https://github.com/cpinitiative/ide
 
-if __name__ == '__main__':
-    doc = p.Document(geometry_options={"tmargin": "1in", "lmargin": "1.5in"})
+https://github.com/search?type=repositories&s=stars&o=desc&q=x
 
-    doc.preamble.append(p.Command('title', 'Awesome Title'))
-    doc.preamble.append(p.Command('author', 'Anonymous author'))
-    doc.preamble.append(p.Command('date', NoEscape(r'\today')))
-    doc.append(p.NoEscape(r'\maketitle'))
+https://github.com/Wandmalfarbe/pandoc-latex-template
 
-    with doc.create(p.Section('The simple stuff')):
-        doc.append('Some regular text and some')
-        with doc.create(p.Subsection('Cute kitten pictures')):
-            with doc.create(p.Figure(position='h!')) as kitten_pic:
-                kitten_pic.add_image('../1.png', width='400px')
-                kitten_pic.add_caption('Look it\'s on its back')
-
-    doc.generate_pdf('full', clean_tex=True)
+mkdir -p ~/.config
+docker run -it --name code-server -p 5555:8080 \
+ -v "$HOME/.config:/home/coder/.config" -v "$PWD:/home/coder/project" \
+ -u "$(id -u):$(id -g)" \
+ -e "DOCKER_USER=$USER" codercom/code-server:latest
 
 
+docker run --rm --volume "$(pwd):/data" --user $(id -u):$(id -g) pandoc/extra example.md -o example.pdf --template eisvogel --listings
+
+https://github.com/Wandmalfarbe/pandoc-latex-template/issues/36
+https://github.com/jgm/pandoc/releases
+wget https://github.com/jgm/pandoc/releases/download/3.1.5/pandoc-3.1.5-1-amd64.deb
+sudo dpkg -i pandoc-3.15.1-1-amd64.deb
+pandoc -v
+
+docker run -d \
+  --name=code-server \
+  -e PUID=1000 -e PGID=1000 -e TZ=Etc/UTC \
+  -e PASSWORD=1 \
+  -e SUDO_PASSWORD=1 \
+  -e DEFAULT_WORKSPACE=/config/workspace `#optional` \
+  -p 8443:8443 \
+  -v /usr/local/dav:/config/workspace \
+  --restart unless-stopped \
+  lscr.io/linuxserver/code-server:latest
 
 wget https://raw.githubusercontent.com/JelteF/PyLaTeX/master/examples/full.py
 wget https://raw.githubusercontent.com/JelteF/PyLaTeX/master/examples/kitten.jpg
