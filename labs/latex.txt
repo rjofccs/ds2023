@@ -1,7 +1,5 @@
 https://github.com/cpinitiative/ide
-
 https://github.com/search?type=repositories&s=stars&o=desc&q=x
-
 https://github.com/Wandmalfarbe/pandoc-latex-template
 
 mkdir -p ~/.config
@@ -12,8 +10,8 @@ docker run -it --name code-server -p 5555:8080 \
 
 
 docker run --rm --volume "$(pwd):/data" --user $(id -u):$(id -g) pandoc/extra example.md -o example.pdf --template eisvogel --listings
-
 https://github.com/Wandmalfarbe/pandoc-latex-template/issues/36
+
 https://github.com/jgm/pandoc/releases
 wget https://github.com/jgm/pandoc/releases/download/3.1.5/pandoc-3.1.5-1-amd64.deb
 sudo dpkg -i pandoc-3.15.1-1-amd64.deb
