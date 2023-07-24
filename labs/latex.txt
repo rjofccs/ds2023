@@ -1,3 +1,151 @@
+l
+https://www.overleaf.com/learn/latex/LaTeX_Graphics_using_TikZ%3A_A_Tutorial_for_Beginners_(Part_3)%E2%80%94Creating_Flowcharts
+
+https://www.bilibili.com/video/BV1Kq4y1G7xK/
+
+https://github.com/eugenp/tutorials/blob/master/docker-modules/docker-java-jar/Dockerfile
+
+https://leetcode.com/studyplan/top-interview-150/
+
+https://usaco.guide/silver/prefix-sums?lang=java
+
+https://usaco.guide/problems/
+
+http://www.usaco.org/index.php?page=viewproblem2&cpid=992&lang=zh
+
+https://tex.stackexchange.com/questions/61429/how-to-draw-a-hexagonal-grid-with-numbers-in-the-cells
+
+https://youtube.googleapis.com/youtube/v3/search?part=id&channelId=UCuFFtHWoLl5fauMMD5Ww2jA&maxResults=5&order=date&type=video&key=AIzaSyDq7i3S4X3QMTBfvN3akKaVwXG6zbfbUEM
+
+https://github.com/topics/java
+
+https://stackoverflow.com/questions/15869784/how-to-run-a-maven-created-jar-file-using-just-the-command-line
+
+https://github.com/redhat-developer/vscode-java/issues/274#issuecomment-829534246
+
+https://blog.csdn.net/liuerchong/article/details/114119528
+
+docker run -it --rm -v "$(pwd)":/usr/src/mymaven -w /usr/src/mymaven maven:3.3-jdk-8 mvn verify
+
+docker run -it --rm -v "$PWD":/usr/src/mymaven -v "$HOME/.m2":/root/.m2 -v "$PWD/target:/usr/src/mymaven/target" -w /usr/src/mymaven maven mvn package
+
+mkdir -p p/src/main/java/com/demo/
+
+.vscode/settings.json
+
+{
+  "java.project.sourcePaths": [""]
+}
+
+
+
+
+tee p/src/main/java/com/demo/App.java <<-'EOF'
+
+package com.demo;
+
+public class UmApplication {
+    public static void main(String[] args) throws Exception {    }
+}
+EOF
+
+tee p/pom.xml<<-'EOF'
+
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<modelVersion>4.0.0</modelVersion>
+<groupId>com.demo</groupId>
+<version>1.0.0-SNAPSHOT</version>
+<artifactId>tl</artifactId>
+<packaging>jar</packaging>
+<name>${project.artifactId}</name>
+<description>A distributed task scheduling framework.</description>
+<properties>
+<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+<maven.compiler.source>11</maven.compiler.source>
+<maven.compiler.target>11</maven.compiler.target>
+<java.version>11</java.version>
+</properties>
+<dependencies>
+<dependency>
+<groupId>cn.hutool</groupId>
+<artifactId>hutool-all</artifactId>
+<version>5.8.10</version>
+</dependency>
+<dependency>
+<groupId>com.alibaba</groupId>
+<artifactId>fastjson</artifactId>
+<version>2.0.22</version>
+</dependency>
+</dependencies>
+<build>
+<plugins>
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-compiler-plugin</artifactId>
+<version>3.8.1</version>
+</plugin>
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-shade-plugin</artifactId>
+<version>2.4.3</version>
+<configuration>
+<transformers>
+<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+<mainClass>com.demo.UmApplication</mainClass>
+</transformer>
+</transformers>
+</configuration>
+<executions>
+<execution>
+<phase>package</phase>
+<goals>
+<goal>shade</goal>
+</goals>
+</execution>
+</executions>
+</plugin>
+<!-- docker -->
+<!-- <plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-surefire-plugin</artifactId>
+<configuration>
+<skipTests>true</skipTests>
+</configuration>
+</plugin>
+<plugin>
+<groupId>com.spotify</groupId>
+<artifactId>dockerfile-maven-plugin</artifactId>
+<version>1.4.13</version>
+<executions>
+<execution>
+<id>default</id>
+<goals>
+<goal>build</goal>
+</goals>
+</execution>
+</executions>
+<configuration>
+<repository>repo/${project.artifactId}</repository>
+<tag>${project.version}</tag>
+<buildArgs>
+<JAR_FILE>${project.artifactId}-${project.version}.jar</JAR_FILE>
+</buildArgs>
+</configuration>
+</plugin> -->
+</plugins>
+</build>
+</project>
+
+EOF
+![image](../../1.PNG){width=500px}
+\begin{tikzpicture}
+\foreach \x in {1,...,14}{
+    \draw (0,\x) -- (4,\x);
+}
+\end{tikzpicture}
+
 https://github.com/cpinitiative/ide
 https://github.com/search?type=repositories&s=stars&o=desc&q=x
 https://github.com/Wandmalfarbe/pandoc-latex-template
