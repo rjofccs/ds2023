@@ -1,56 +1,37 @@
-l
 https://www.overleaf.com/learn/latex/LaTeX_Graphics_using_TikZ%3A_A_Tutorial_for_Beginners_(Part_3)%E2%80%94Creating_Flowcharts
-
 https://www.bilibili.com/video/BV1Kq4y1G7xK/
-
 https://github.com/eugenp/tutorials/blob/master/docker-modules/docker-java-jar/Dockerfile
-
 https://leetcode.com/studyplan/top-interview-150/
-
 https://usaco.guide/silver/prefix-sums?lang=java
-
 https://usaco.guide/problems/
-
 http://www.usaco.org/index.php?page=viewproblem2&cpid=992&lang=zh
-
 https://tex.stackexchange.com/questions/61429/how-to-draw-a-hexagonal-grid-with-numbers-in-the-cells
-
 https://youtube.googleapis.com/youtube/v3/search?part=id&channelId=UCuFFtHWoLl5fauMMD5Ww2jA&maxResults=5&order=date&type=video&key=AIzaSyDq7i3S4X3QMTBfvN3akKaVwXG6zbfbUEM
-
 https://github.com/topics/java
-
 https://stackoverflow.com/questions/15869784/how-to-run-a-maven-created-jar-file-using-just-the-command-line
-
 https://github.com/redhat-developer/vscode-java/issues/274#issuecomment-829534246
-
 https://blog.csdn.net/liuerchong/article/details/114119528
 
 docker run -it --rm -v "$(pwd)":/usr/src/mymaven -w /usr/src/mymaven maven:3.3-jdk-8 mvn verify
-
 docker run -it --rm -v "$PWD":/usr/src/mymaven -v "$HOME/.m2":/root/.m2 -v "$PWD/target:/usr/src/mymaven/target" -w /usr/src/mymaven maven mvn package
 
 mkdir -p p/src/main/java/com/demo/
 
-.vscode/settings.json
-
+tee p/.vscode/settings.json<<-'EOF'
 {
   "java.project.sourcePaths": [""]
 }
+EOF
 
-
-
-
-tee p/src/main/java/com/demo/App.java <<-'EOF'
-
+tee p/src/main/java/com/demo/App.java<<-'EOF'
 package com.demo;
-
 public class UmApplication {
-    public static void main(String[] args) throws Exception {    }
+    public static void main(String[] args) throws Exception {
+    }
 }
 EOF
 
 tee p/pom.xml<<-'EOF'
-
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 <modelVersion>4.0.0</modelVersion>
@@ -137,8 +118,8 @@ tee p/pom.xml<<-'EOF'
 </plugins>
 </build>
 </project>
-
 EOF
+
 ![image](../../1.PNG){width=500px}
 \begin{tikzpicture}
 \foreach \x in {1,...,14}{
