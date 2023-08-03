@@ -30,7 +30,71 @@ gh repo clone rjofccs/ms2023
 
 
 
+inaninstant
 
+notatall
+
+takeiteasy
+
+
+
+
+justdoit
+
+whois
+
+toooften
+
+Iam
+
+sheasked
+
+r
+
+
+
+
+https://huggingface.co/spaces/sanchit-gandhi/whisper-jax
+
+https://vscode.dev/
+
+https://gist.github.com/Bonno/73873ed4ac523adc9611
+
+https://coder.com/docs/code-server/latest/FAQ
+
+https://levelup.gitconnected.com/fix-error-unable-to-extract-uploader-id-3fad389322a7
+
+https://ssheasy.com/
+
+https://stackoverflow.com/questions/57869367/ffmpeg-subtitles-alignment-and-position/57886939#57886939
+
+https://superuser.com/questions/363511/execute-script-program-when-file-changes
+
+https://tex.stackexchange.com/questions/161352/pdflatex-how-to-automatically-quit-on-compile-error
+
+https://tex.stackexchange.com/questions/61429/how-to-draw-a-hexagonal-grid-with-numbers-in-the-cells
+
+https://www.smarthomebeginner.com/best-docker-containers-for-home-server/
+
+
+
+
+python3 -m pip install --force-reinstall https://github.com/yt-dlp/yt-dlp/archive/master.tar.gz
+
+yt-dlp --format "bv*[ext=mp4][height<=720]+ba[ext=m4a]/b[ext=mp4][height<=720]" --write-auto-sub -o "./%(id)s.%(ext)s" u
+
+ffmpeg -i  xx -lavfi "subtitles= .en.vtt:force_style='Alignment=0,OutlineColour=&H100000000,BorderStyle=3,Outline=1,Shadow=0,Fontsize=18,MarginL=5,MarginV=25'" xx
+
+ffmpeg -ss {} -to {} -y -i xx -c copy xx
+ffmpeg -itsoffset -1.0 -y -i xx -i xx -map 0:v -map 1:a -vcodec copy -acodec copy yy
+
+
+
+
+
+p6R+yoajfvfrZa-*
+
+docker run -d -p 8081:8081 -v /path/to/downloads:/downloads ghcr.io/alexta69/metube
 
 https://drive.google.com/file/d/1A1IGuzwAtqnw95Y69VUC6CqK_GpIs-01/view
 https://drive.google.com/file/d/1e4MIqcsDaMyreMu9-F6RnDc63cNbNs4A/view?pli=1
